@@ -35,4 +35,6 @@ class AuditLog extends Model
     ];
 
     public $table = 'auditlogs';
+
+
 }

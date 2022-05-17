@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\AuditLog;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.home');
+
+    $logs = AuditLog::query()->where('event_date','>', Carbon::yesterday())->get();
+
+    return view('pages.home', ["logs" => $logs]);
 });
