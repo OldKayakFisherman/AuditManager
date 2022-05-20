@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\AuditLog;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,30 @@ use Carbon\Carbon;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
 
-    $logs = AuditLog::query()->where('event_date','>', Carbon::yesterday())->get();
+    var_dump(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,1));
+    var_dump($request->server('HTTP_X_FORWARDED_FOR'));
+    var_dump($request->server('REMOTE_ADDR'));
+    var_dump($request->userAgent());
+    var_dump(gethostname());
 
-    return view('pages.home', ["logs" => $logs]);
+    $logs = AuditLog::query()->where('created_at', '>', Carbon::now()->subDays(2)->toDateTimeString())->get();
+    $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
+
+    return view('pages.home', ['logs' => $logs, 'apps' => $apps]);
+});
+
+Route::post('/search', function (Request $request){
+
+    var_dump($request->all());
+
+    $logs = AuditLog::query()->where('created_at', '>', Carbon::now()->subDays(2)->toDateTimeString())->get();
+    $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
+
+    return view('pages.home', ['logs' => $logs, 'apps' => $apps]);
+});
+
+Route::post('/analyze', function (){
+
 });

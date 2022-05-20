@@ -2,34 +2,25 @@
 
 @section('content')
 
-    {!! $logs !!}
-
     <div class="container">
+        <form action="/search" method="post" enctype="application/x-www-form-urlencoded">
+            @csrf
         <div class="row mt-3">
             <div class="col-4">
                 <div class="input-group">
                     <label class="form-label mt-1" htmlFor="selApplication" title="Application">Application:</label>
                     <select class="ms-1 form-control form-control-sm" id="selApplication">
                         <option value="DEFAULT"></option>
-                        <option value="App 1">App 1</option>
-                        <option value="App 2">App 2</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-group">
-                    <label class="form-label mt-1" htmlFor="selApplication" title="Application">Log Period:</label>
-                    <select class="ms-1 form-control form-control-sm" id="selApplication">
-                        <option value="DEFAULT"></option>
-                        <option value="Daily">Daily</option>
-                        <option value="Custom">Custom</option>
+                        @foreach($apps as $app)
+                            <option value="{{ $app['app'] }}">{{ $app['app'] }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="form-label mt-1" htmlFor="txtStartDate" title="Application">Start:</label>
-                    <input class="ms-1 form-control form-control-sm" id="txtStartDate" type="date"/>
+                    <label class="form-label mt-1" for="txtStartDate" title="Application">Start:</label>
+                    <input class="ms-1 form-control form-control-sm" name="prmStartDate" id="txtStartDate" type="date"/>
                 </div>
             </div>
             <div class="col-2">
@@ -38,11 +29,20 @@
                     <input id="txtEndDate" class="ms-1 form-control form-control-sm" type="date"/>
                 </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-2 offset-10">
-                <a class="btn btn-success ms-5">Analyze Logs</a>
+            <div class="col-2">
+                <div class="input-group">
+                    <input type="submit"  class="btn btn-primary" value="Search" />
+                </div>
             </div>
+        </div>
+        </form>
+        <div class="row mt-3">
+            <form action="/analyze" method="post" enctype="application/x-www-form-urlencoded">
+                @csrf
+                <div class="col-2 offset-10">
+                    <a class="btn btn-success ms-5">Analyze Logs</a>
+                </div>
+            </form>
         </div>
         <div class="row mt-3">
             <div class="col-12">
