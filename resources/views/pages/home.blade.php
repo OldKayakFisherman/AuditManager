@@ -9,8 +9,8 @@
             <div class="col-4">
                 <div class="input-group">
                     <label class="form-label mt-1" htmlFor="selApplication" title="Application">Application:</label>
-                    <select class="ms-1 form-control form-control-sm" id="selApplication">
-                        <option value="DEFAULT"></option>
+                    <select class="ms-1 form-control form-control-sm" id="selApplication" name="prmApp">
+                        <option value=""></option>
                         @foreach($apps as $app)
                             <option value="{{ $app['app'] }}">{{ $app['app'] }}</option>
                         @endforeach
@@ -19,14 +19,14 @@
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="form-label mt-1" for="txtStartDate" title="Application">Start:</label>
+                    <label class="form-label mt-1" for="txtStartDate" title="Start Date">Start:</label>
                     <input class="ms-1 form-control form-control-sm" name="prmStartDate" id="txtStartDate" type="date"/>
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="form-label mt-1" htmlFor="txtEndDate" title="Application">End:</label>
-                    <input id="txtEndDate" class="ms-1 form-control form-control-sm" type="date"/>
+                    <label class="form-label mt-1" htmlFor="txtEndDate" title="End Date">End:</label>
+                    <input id="txtEndDate" name="prmEndDate" class="ms-1 form-control form-control-sm" type="date"/>
                 </div>
             </div>
             <div class="col-2">

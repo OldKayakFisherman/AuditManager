@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\AuditLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function (Request $request) {
+Route::get('/', function () {
 
-    var_dump(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,1));
-    var_dump($request->server('HTTP_X_FORWARDED_FOR'));
-    var_dump($request->server('REMOTE_ADDR'));
-    var_dump($request->userAgent());
-    var_dump(gethostname());
 
     $logs = AuditLog::query()->where('created_at', '>', Carbon::now()->subDays(2)->toDateTimeString())->get();
     $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
@@ -32,10 +28,35 @@ Route::get('/', function (Request $request) {
 
 Route::post('/search', function (Request $request){
 
-    var_dump($request->all());
 
-    $logs = AuditLog::query()->where('created_at', '>', Carbon::now()->subDays(2)->toDateTimeString())->get();
+    $baseQuery= AuditLog::query();
+    $filtered = false;
+
+    if($request->filled('prmStartDate') && $request->filled('prmEndDate'))
+    {
+        var_dump('Date');
+        $baseQuery->whereBetween('event_date', [$request->input('prmStartDate'), $request->input('prmEndDate')]);
+        $filtered = true;
+    }
+
+    if($request->filled('prmApp') && Str::length($request->input('prmApp')) > 0)
+    {
+            var_dump($request->input('prmApp'));
+            $baseQuery->where('app', '=', $request->input('prmApp'));
+            $filtered = true;
+    }
+
+    $logs = AuditLog::query()->where('created_at', '>', Carbon::now()->subDays(2)->toDateTimeString())->get();;
+
+    if($filtered === true)
+    {
+        var_dump('Is Filtered');
+        $logs = $baseQuery->get();
+    }
+
     $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
+
+    var_dump($logs);
 
     return view('pages.home', ['logs' => $logs, 'apps' => $apps]);
 });
