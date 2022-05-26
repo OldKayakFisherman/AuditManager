@@ -58,37 +58,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>192.168.1.1</td>
-                        <td>System</td>
-                        <td>Application Start-Up</td>
-                        <td>1/1/2023 13:01:23</td>
-                        <td>POST /cgi-bin/process.cgi HTTP/1.1
-                            User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)
-                            Host: www.tutorialspoint.com
-                            Content-Type: application/x-www-form-urlencoded
-                            Content-Length: length
-                            Accept-Language: en-us
-                            Accept-Encoding: gzip, deflate
-                            Connection: Keep-Aliv</td>
-                        <td><a href="#">More</a></td>
-                    </tr>
-                    <tr>
-                        <td>192.168.1.2</td>
-                        <td>System</td>
-                        <td>Application Shut-Doen</td>
-                        <td>1/1/2023 13:11:38</td>
-                        <td>POST /cgi-bin/process.cgi HTTP/1.1
-                            User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)
-                            Host: www.tutorialspoint.com
-                            Content-Type: application/x-www-form-urlencoded
-                            Content-Length: length
-                            Accept-Language: en-us
-                            Accept-Encoding: gzip, deflate
-                            Connection: Keep-Aliv</td>
-                        <td><a href="#">More</a></td>
-                    </tr>
+
+                    @foreach($logs as $log)
+                        <tr>
+                            <td>{{$log['referrer']}}</td>
+                            <td>{{$log['user_account']}}</td>
+                            <td>{{$log['type']}}</td>
+                            <td>{{$log['event_date']}}</td>
+                            <td>{{$log['request_headers']}}</td>
+                            <td><a href="#">Detail</a></td>
+                        </tr>
+                    @endforeach
+
                     </tbody>
+                    <tfoot>
+                        {{ $logs->links() }}
+                    </tfoot>
 
                 </table>
 

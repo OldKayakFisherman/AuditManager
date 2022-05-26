@@ -51,12 +51,12 @@ Route::post('/search', function (Request $request){
     if($filtered === true)
     {
         var_dump('Is Filtered');
-        $logs = $baseQuery->get();
+        $logs = $baseQuery->paginate(10);
     }
 
     $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
 
-    var_dump($logs);
+    //var_dump($logs);
 
     return view('pages.home', ['logs' => $logs, 'apps' => $apps]);
 });
