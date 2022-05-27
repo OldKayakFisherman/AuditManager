@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <form action="/search" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="/" method="post" enctype="application/x-www-form-urlencoded">
             @csrf
         <div class="row mt-3">
             <div class="col-4">
