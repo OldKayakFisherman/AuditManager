@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AuditLog;
+use App\ViewModels\HomeViewModel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -14,9 +15,15 @@ class AuditLogController extends Controller
     {
         $baseQuery= AuditLog::query();
         $filtered = false;
+        $selectedApp = null;
+        $selectedStartDate = null;
+        $selectedEndDate = null;
 
         if($request->filled('prmStartDate') && $request->filled('prmEndDate'))
         {
+            $selectedStartDate = $request->input('prmStartDate');
+            $selectedEndDate = $request->input('prmEndDate');
+
             var_dump('Date');
             $baseQuery->whereBetween('event_date', [$request->input('prmStartDate'), $request->input('prmEndDate')]);
             $filtered = true;
@@ -39,6 +46,17 @@ class AuditLogController extends Controller
 
         $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
 
-        return view('pages.home', ['logs' => $logs, 'apps' => $apps]);
+        var_dump(get_class($logs));
+
+        $viewModel = new HomeViewModel
+        (
+            $logs,
+            $apps,
+            $selectedApp,
+            $selectedStartDate,
+            $selectedEndDate
+        );
+
+        return view('pages.home', $viewModel);
     }
 }

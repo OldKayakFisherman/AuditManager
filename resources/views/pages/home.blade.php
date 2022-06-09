@@ -4,6 +4,11 @@
 
     <div class="container">
         <form action="/" method="post" enctype="application/x-www-form-urlencoded">
+
+        <input id="hdnSelectedApp" type="hidden" value="{{$selectedApp}}" />
+        <input id="hdnSelectedStartDate" type="hidden" value="{{$selectedStartDate}}" />
+        <input id="hdnSelectedEndDate" type="hidden" value="{{$selectedEndDate}}" />
+
             @csrf
         <div class="row mt-3">
             <div class="col-4">
