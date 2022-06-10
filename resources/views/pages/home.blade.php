@@ -87,3 +87,10 @@
     </div>
 
 @stop
+
+<script>
+    (function(){
+        console.log("hello");
+    })();
+
+</script>

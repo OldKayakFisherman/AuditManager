@@ -31,7 +31,7 @@ class AuditLogController extends Controller
 
         if($request->filled('prmApp') && Str::length($request->input('prmApp')) > 0)
         {
-            var_dump($request->input('prmApp'));
+            $selectedApp = $request->input('prmApp');
             $baseQuery->where('app', '=', $request->input('prmApp'));
             $filtered = true;
         }
@@ -46,7 +46,7 @@ class AuditLogController extends Controller
 
         $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
 
-        var_dump(get_class($logs));
+        var_dump($selectedApp);
 
         $viewModel = new HomeViewModel
         (
