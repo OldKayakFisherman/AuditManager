@@ -46,7 +46,7 @@ class AuditLogController extends Controller
 
         $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
 
-        var_dump($selectedApp);
+        //var_dump($selectedApp);
 
         $viewModel = new HomeViewModel
         (

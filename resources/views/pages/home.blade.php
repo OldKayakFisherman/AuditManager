@@ -13,7 +13,7 @@
         <div class="row mt-3">
             <div class="col-4">
                 <div class="input-group">
-                    <label class="form-label mt-1" htmlFor="selApplication" title="Application">Application:</label>
+                    <label class="form-label mt-1" for="selApplication" title="Application">Application:</label>
                     <select class="ms-1 form-control form-control-sm" id="selApplication" name="prmApp">
                         <option value=""></option>
                         @foreach($apps as $app)
@@ -30,7 +30,7 @@
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="form-label mt-1" htmlFor="txtEndDate" title="End Date">End:</label>
+                    <label class="form-label mt-1" for="txtEndDate" title="End Date">End:</label>
                     <input id="txtEndDate" name="prmEndDate" class="ms-1 form-control form-control-sm" type="date"/>
                 </div>
             </div>
@@ -89,8 +89,26 @@
 @stop
 
 <script>
-    (function(){
-        console.log("hello");
-    })();
+
+    window.onload = function() {
+        let selectedApp = document.getElementById('hdnSelectedApp');
+        let selectedStartDate = document.getElementById('hdnSelectedStartDate');
+        let selectedEndDate = document.getElementById('hdnSelectedEndDate');
+
+
+        if(selectedApp !== null){
+            if(selectedApp.value.trim().length > 0)
+            {
+                let selectApplication = document.getElementById('selApplication');
+
+                if(selectApplication !== null){
+                    selectApplication.value = selectedApp;
+
+                }
+
+            }
+        }
+
+    }
 
 </script>
