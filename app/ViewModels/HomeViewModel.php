@@ -3,9 +3,8 @@
 namespace App\ViewModels;
 
 use Illuminate\Database\Eloquent\Collection;
-use PhpParser\Node\Expr\Cast\Object_;
 use Spatie\ViewModels\ViewModel;
-use lluminate\Pagination\LengthAwarePaginator;
+
 
 class HomeViewModel extends ViewModel
 {
@@ -15,7 +14,7 @@ class HomeViewModel extends ViewModel
     public $logs = null;
     public $apps = null;
 
-    public function __construct(Object $logs, Collection $apps, string $selectedApp = null, date $selectedStartDate = null, date $selectedEndDate = null)
+    public function __construct(Object $logs, Collection $apps, string $selectedApp = null, string $selectedStartDate = null, string $selectedEndDate = null)
     {
         $this->selectedApp = $selectedApp;
         $this->selectedStartDate = $selectedStartDate;

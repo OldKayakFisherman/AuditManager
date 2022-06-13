@@ -24,7 +24,6 @@ class AuditLogController extends Controller
             $selectedStartDate = $request->input('prmStartDate');
             $selectedEndDate = $request->input('prmEndDate');
 
-            var_dump('Date');
             $baseQuery->whereBetween('event_date', [$request->input('prmStartDate'), $request->input('prmEndDate')]);
             $filtered = true;
         }
@@ -46,7 +45,7 @@ class AuditLogController extends Controller
 
         $apps = AuditLog::query()->distinct('app')->orderBy('app')->get('app');
 
-        //var_dump($selectedApp);
+        var_dump($selectedStartDate);
 
         $viewModel = new HomeViewModel
         (

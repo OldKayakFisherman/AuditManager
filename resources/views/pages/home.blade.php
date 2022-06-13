@@ -24,14 +24,14 @@
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="form-label mt-1" for="txtStartDate" title="Start Date">Start:</label>
-                    <input class="ms-1 form-control form-control-sm" name="prmStartDate" id="txtStartDate" type="date"/>
+                    <label class="form-label mt-1" for="prmStartDate" title="Start Date">Start:</label>
+                    <input class="ms-1 form-control form-control-sm" name="prmStartDate" id="prmStartDate" type="date"/>
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="form-label mt-1" for="txtEndDate" title="End Date">End:</label>
-                    <input id="txtEndDate" name="prmEndDate" class="ms-1 form-control form-control-sm" type="date"/>
+                    <label class="form-label mt-1" for="prmEndDate" title="End Date">End:</label>
+                    <input id="prmEndDate" name="prmEndDate" class="ms-1 form-control form-control-sm" type="date"/>
                 </div>
             </div>
             <div class="col-2">
@@ -95,20 +95,28 @@
         let selectedStartDate = document.getElementById('hdnSelectedStartDate');
         let selectedEndDate = document.getElementById('hdnSelectedEndDate');
 
-
         if(selectedApp !== null){
             if(selectedApp.value.trim().length > 0)
             {
                 let selectApplication = document.getElementById('selApplication');
 
                 if(selectApplication !== null){
-                    selectApplication.value = selectedApp;
-
+                    for(let i=0; i<selectApplication.options.length;i++){
+                        if(selectApplication.options[i].value === selectedApp.value){
+                            selectApplication.options[i].setAttribute('SELECTED','');
+                        }
+                    }
                 }
-
             }
         }
 
+        if(selectedStartDate !== null && selectedStartDate.value.trim().length > 0){
+            document.getElementById('prmStartDate').value = selectedStartDate.value;
+        }
+
+        if(selectedEndDate !== null && selectedEndDate.value.trim().length > 0){
+            document.getElementById('prmEndDate').value = selectedEndDate.value;
+        }
     }
 
 </script>
